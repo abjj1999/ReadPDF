@@ -31,7 +31,7 @@ export default async function Home() {
               <h1 className="text-white">File upload</h1>
             ):(
               <Link href="/sign-in">
-                <Button className="bg-gray-600 hover:bg-black">Login to get Started!!
+                <Button className="p-2 bg-gray-600 hover:bg-black">Login to get Started!!
                   <LogIn className="w-4 h-4 ml-2" />
                 </Button>
               </Link>
