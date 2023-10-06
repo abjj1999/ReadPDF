@@ -1,3 +1,4 @@
+import FileUpload from "@/components/FileUpload";
 import { Button } from "@/components/ui/button";
 import { UserButton, auth } from "@clerk/nextjs";
 import { DonutIcon, LogIn } from "lucide-react";
@@ -23,12 +24,13 @@ export default async function Home() {
 
             )}
           </div>
-          <p className="text-neutral-400 max-w-xl mt-1 text-lg ">
+          <p className="text-neutral-400 max-w-xl  text-lg my-3">
             Join the PDF.AI community and expolore the power of AI. 
           </p>
-          <div className="w-full mt-4">
+          <div className="w-full mt-6">
             {isAuth ? (
-              <h1 className="text-white">File upload</h1>
+              // <h1 className="text-white">File upload</h1>
+              <FileUpload />
             ):(
               <Link href="/sign-in">
                 <Button className="p-2 bg-gray-600 hover:bg-black">Login to get Started!!
@@ -37,7 +39,7 @@ export default async function Home() {
               </Link>
             )}
           </div>
-          
+          {/* <FileUpload /> */}
       </div>
     </div>
     </div>
