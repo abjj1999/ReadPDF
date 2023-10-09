@@ -8,7 +8,7 @@ import Provider from "@/components/Provider";
 import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
-const ar_one_sans = AR_One_Sans({ subsets: ["latin"] });
+// const ar_one_sans = AR_One_Sans({ subsets: ["latin"] });
 
 
 export const metadata: Metadata = {
@@ -25,7 +25,7 @@ export default function RootLayout({
       <Provider>
       <html lang="en">
       <Toaster />
-        <body className={ar_one_sans.className}>{children}</body>
+        <body className={inter.className}>{children}</body>
       </html>
     </Provider>
     </ClerkProvider>

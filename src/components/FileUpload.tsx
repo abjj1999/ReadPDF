@@ -2,17 +2,21 @@
 import { uploadToS3 } from '@/lib/s3';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
-import { Inbox } from 'lucide-react';
+import { Inbox, Loader2 } from 'lucide-react';
+import { useState } from 'react';
 import {useDropzone} from 'react-dropzone'
 import toast from 'react-hot-toast';
 interface FileUploadProps {}
 
 const  FileUpload = () => {
-    const  {mutate} = useMutation({
+    const [uploading, setUploading] = useState(false);
+
+    const  {mutate, isLoading} = useMutation({
         mutationFn: async({file_key, file_name}:{file_key: string, file_name: string}) => {
             const res = await axios.post("/api/chat/create",{
                 file_key, file_name
             })
+            // console.log(res.data);
             return res.data;
         }
     })
@@ -30,6 +34,7 @@ const  FileUpload = () => {
             }
 
             try {
+                setUploading(true);
                 const data = await uploadToS3(file);
                 // console.log(data);
                 if(!data?.file_key|| !data?.file_name){
@@ -39,8 +44,9 @@ const  FileUpload = () => {
                 }
 
                 mutate(data, {
-                    onSuccess:() => {
-                        console.log("Success", data);
+                    onSuccess:(data) => {
+                        // console.log("Success", data);
+                        toast.success(data.message);
                     },
                     onError: (error) => {
                         toast.error("Error creating chat");
@@ -49,6 +55,8 @@ const  FileUpload = () => {
                 
             } catch (error) {
                 console.log(error);
+            }finally{
+                setUploading(false);
             }
 
         }
@@ -59,12 +67,22 @@ const  FileUpload = () => {
                 className: 'dropzone border-dashed border-2 rounded-xl cursor-pointer bg-gray-50 py-8 flex justify-center items-center flex-col',
             })}>
                 <input type="text" className="" {...getInputProps()} />
-                <>
-                    <Inbox className="w-10 h-10 text-blue-500" />
-                    <p className="mt-2 text-sm text-slate-400">
-                        Drag 'n' drop some files here, or click to select files
-                    </p>
-                </>
+                {uploading || isLoading ? (
+                    <>
+                        <Loader2 className="w-10 h-10 text-blue-500 animate-spin" />
+                        <p className="mt-2 text-sm text-slate-400">
+                            Uploading...
+                        </p>
+                    </>
+                ) :(
+
+                    <>
+                        <Inbox className="w-10 h-10 text-blue-500" />
+                        <p className="mt-2 text-sm text-slate-400">
+                            Drag 'n' drop some files here, or click to select files
+                        </p>
+                    </>
+                )}
             </div>
         </div>
      );
