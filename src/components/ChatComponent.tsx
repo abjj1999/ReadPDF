@@ -4,12 +4,26 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import {useChat} from "ai/react";
 import MessageList from "./MessageList";
-
-const ChatComponent = () => {
+import React from "react";
+type Props = {chatId: number}
+const ChatComponent = ({chatId}: Props) => {
     
     const {input, handleInputChange, handleSubmit, messages} = useChat({
-        api: '/api/chat'
+        api: '/api/chat',
+        body: {
+          chatId
+        }
     });
+    React.useEffect(() => {
+      const messageContainer = document.getElementById("message-container");
+      if (messageContainer) {
+        messageContainer.scrollTo({
+          top: messageContainer.scrollHeight,
+          behavior: "smooth",
+        });
+      }
+    }, [messages]);
+    
     return ( 
         <div
       className="relative max-h-screen"
