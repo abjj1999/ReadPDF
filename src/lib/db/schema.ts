@@ -11,7 +11,7 @@ export const chats = pgTable('chats', {
     userId: varchar("user_id").notNull(),
     fillKey: text("fill_key").notNull(),
 })
-
+export type DrizzleChat = typeof chats.$inferSelect;
 // messages table schema definition
 export const messages = pgTable('messages', {
     id: serial("id").primaryKey(),
