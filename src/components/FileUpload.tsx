@@ -21,7 +21,7 @@ const FileUpload = () => {
       file_key: string;
       file_name: string;
     }) => {
-      const response = await axios.post("/api/chat/create", {
+      const response = await axios.post(`${process.env.BASE_URL}/api/chat/create`, {
         file_key,
         file_name,
       });
