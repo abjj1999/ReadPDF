@@ -83,7 +83,7 @@ const  FileUpload = () => {
                     <>
                         <Inbox className="w-10 h-10 text-blue-500" />
                         <p className="mt-2 text-sm text-slate-400">
-                            Drag 'n' drop some files here, or click to select files
+                            Drag n drop some files here, or click to select files
                         </p>
                     </>
                 )}
