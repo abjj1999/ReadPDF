@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# PDF AI
 
-## Getting Started
+## Description
+An app that allows user to upload a PDF file and the user can ask questions about the PDF file and the app will answer the questions using chatgpt. 
 
-First, run the development server:
+## Process of events
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. User uploads a PDF file 
+2. PDF is uploaded to AWS S3
+3. PDF is retrieved from AWS S3 to be sent to BE
+4. PDF is sent to BE
+5. BE converts PDF to text (next need to vectorize the text)
+6. embed the text using openai-edge (embeddings is the process of converting text to numbers)
+7. embeded vectors are sent to Pinecone (vector database)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Tech Stack
+- Next.js13
+- TailwindCSS
+- AWS S3
+- Drizzle-ORM
+- Pinecone
+- OpenAI-Edge
+- OpenAI
+- Clerk
+- Shadcn UI
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## what's next for the project
+- Add a payment processor, with subscription model
+    - Stripe (where users have to subscribe to use the app)
+- refactor the code 
+- style the app better
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## live demo
+https://read-pdf-4epw.vercel.app/
